@@ -1,6 +1,6 @@
 # Analyzátor klíčových slov
 
-Skript načte obsah vstupního textového souboru. Poté na základě algoritmů vyfiltruje z textu tzv. stop slova a provede jeho analýzu. Na základě analýzy definuje pět klíčových slov, která seřadí sestupně dle frekvence výskytu v textu. Tato slova vypíše v terminálu a uloží je do nového textového souboru. Program tvoří i provizorní instalátor, který nainstaluje potřebné CPAN moduly.
+Skript načte obsah vstupního textového souboru. Poté na základě algoritmů vyfiltruje z textu tzv. stop slova a provede jeho analýzu. Na základě analýzy definuje pět klíčových slov, která seřadí sestupně dle frekvence výskytu v textu. Tato slova vypíše v terminálu a uloží je do nového textového souboru. Součástí skriptu je i provizorní instalátor, který nainstaluje potřebné CPAN moduly.
 
 ## Vstup a výstup
 
@@ -14,9 +14,9 @@ Podmínkou pro spuštění skriptu je nainstalavaný Perl verze 5. Skript dále 
 
 Skript obsahuje provizorní automatický instalátor, který ale dle prozatímního testování nemusí být spolehlivý na všech systémech. Hlavním kamenem úrazu instalátoru je snaha o obejítí nutnosti instalovat moduly jako root uživatel skrze local::lib. Pokud instalátor selže, nainstalujte moduly manuálně dle instrukcí na webových stránkách uvedených níže.
 
-https://metacpan.org/source/Lingua::Stem::En
-https://metacpan.org/source/Lingua::EN::Tagger
-https://metacpan.org/pod/Lingua::EN::Keywords
+* https://metacpan.org/source/Lingua::Stem::En
+* https://metacpan.org/source/Lingua::EN::Tagger
+* https://metacpan.org/pod/Lingua::EN::Keywords
 
 ### Spuštění
 
