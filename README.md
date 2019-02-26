@@ -1,6 +1,6 @@
 # Analyzátor klíčových slov
 
-Skript načte obsah vstupního textového souboru. Poté na základě algoritmů vyfiltruje z textu tzv. stop slova a provede jeho analýzu. Na základě analýzy definuje pět klíčových slov, která seřadí sestupně dle frekvence výskytu v textu. Tato slova vypíše v terminálu a uloží je do nového textového souboru. Program tvoří i provizorní instalátor, který nainstaluje potřebné CPAN moduly.
+Skript načte obsah vstupního textového souboru. Poté na základě algoritmů vyfiltruje z textu tzv. stop slova a provede jeho analýzu. Na základě analýzy definuje pět klíčových slov, která seřadí sestupně dle frekvence výskytu v textu. Tato slova vypíše v terminálu a uloží je do nového textového souboru. Součástí skriptu je i provizorní instalátor, který nainstaluje potřebné CPAN moduly.
 
 ## Vstup a výstup
 
