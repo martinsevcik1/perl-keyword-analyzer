@@ -14,9 +14,9 @@ Podmínkou pro spuštění skriptu je nainstalavaný Perl verze 5. Skript dále 
 
 Skript obsahuje provizorní automatický instalátor, který ale dle prozatímního testování nemusí být spolehlivý na všech systémech. Hlavním kamenem úrazu instalátoru je snaha o obejítí nutnosti instalovat moduly jako root uživatel skrze local::lib. Pokud instalátor selže, nainstalujte moduly manuálně dle instrukcí na webových stránkách uvedených níže.
 
-https://metacpan.org/source/Lingua::Stem::En
-https://metacpan.org/source/Lingua::EN::Tagger
-https://metacpan.org/pod/Lingua::EN::Keywords
+* https://metacpan.org/source/Lingua::Stem::En
+* https://metacpan.org/source/Lingua::EN::Tagger
+* https://metacpan.org/pod/Lingua::EN::Keywords
 
 ### Spuštění
 
