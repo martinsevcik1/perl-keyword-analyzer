@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 BEGIN
 {
   print "######################################\n";
@@ -8,7 +9,8 @@ BEGIN
     print "Dobrý den, vítejte v programu pro výpis klíčových slov z textu
 uloženém v souboru text.txt. Instalační skript nejdříve zkontroluje,
 zda máte nainstalované potřebné CPAN moduly a případně je
-nainstaluje. Stiskněte <Enter> nebo <Return> pro pokračování: \n";
+nainstaluje. Pro instalaci je třeba zadat heslo root uživatele.
+Stiskněte <Enter> nebo <Return> pro pokračování: \n";
 print "######################################\n";
 print "######################################\n";
 print "######################################\n";
@@ -16,8 +18,8 @@ print "######################################\n";
     my $resp = <STDIN>;
 }
 {
-system("/bin/bash ./instalator_modulu.sh") == 0
-or die "Skript nelze spustit";
+system("sudo cpan install Lingua::EN::Keywords") == 0
+or die "Instalaci nelze spustit.";
 }
 print "######################################\n";
 print "######################################\n";
