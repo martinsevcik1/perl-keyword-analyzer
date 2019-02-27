@@ -1,61 +1,58 @@
-#!/usr/bin/perl
 BEGIN
 {
   print "######################################\n";
   print "######################################\n";
   print "######################################\n";
   print "######################################\n";
-    local( $| ) = ( 1 );
-    print "Dobrý den, vítejte v programu pro výpis klíčových slov z textu
-uloženém v souboru text.txt. Instalační skript nejdříve zkontroluje,
-zda máte nainstalované potřebné CPAN moduly a případně je
-nainstaluje. Pro instalaci je třeba zadat heslo root uživatele.
-Stiskněte <Enter> nebo <Return> pro pokračování: \n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-    my $resp = <STDIN>;
-}
-{
-system("sudo cpan install Lingua::EN::Keywords") == 0
-or die "Instalaci nelze spustit.";
-}
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-{
-    local( $| ) = ( 1 );
-    print "Instalační skript ukončen. Pokud se během instalace vyskytly
-problémy, nainstalujte prosím moduly manuálně dle přiloženého souboru
-README.md. stiskněte <Enter> nebo <Return> pro pokračování: \n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-    my $resp = <STDIN>;
+  local( $| ) = ( 1 );
+  print "Dobrý den, vítejte v programu pro výpis klíčových slov z textu
+  uloženém v souboru text.txt. Instalační skript nejdříve zkontroluje,
+  zda máte nainstalované potřebné CPAN moduly a případně je
+  nainstaluje. Stiskněte <Enter> nebo <Return> pro pokračování: \n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  my $resp = <STDIN>;
+
+  system("/bin/bash ./instalator_modulu.sh") == 0
+  or die "Skript nelze spustit";
+
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+
+  local( $| ) = ( 1 );
+  print "Instalační skript ukončen. Pokud se během instalace vyskytly
+  problémy, nainstalujte prosím moduly manuálně dle přiloženého souboru
+  README.md. stiskněte <Enter> nebo <Return> pro pokračování: \n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  my $resp = <STDIN>;
 }
 use Lingua::EN::Keywords;
 use utf8;
 my $file = "text.txt";
 my $document = do {
-    local $/ = undef;
-    open my $fh, "<:encoding(UTF-8)", $file
-        or die "could not open $file: $!";
-    <$fh>;
+  local $/ = undef;
+  open my $fh, "<:encoding(UTF-8)", $file
+  or die "could not open $file: $!";
+  <$fh>;
 };
 {
-    local( $| ) = ( 1 );
-    print "Vstupní soubor text.txt se načetl v pořádku. Nyní program odfiltruje
-ze zadaného textu stop slova a zobrazí filtrovaný text, ze kterého
-vybere pět klíčových slov a seřadí je sestupně podle frekvence jejich
-výskytu. Stiskněte <Enter> nebo <Return> pro pokračování: \n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-print "######################################\n";
-    my $resp = <STDIN>;
+  local( $| ) = ( 1 );
+  print "Vstupní soubor text.txt se načetl v pořádku. Nyní program odfiltruje
+  ze zadaného textu stop slova a zobrazí filtrovaný text, ze kterého
+  vybere pět klíčových slov a seřadí je sestupně podle frekvence jejich
+  výskytu. Stiskněte <Enter> nebo <Return> pro pokračování: \n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  my $resp = <STDIN>;
 }
 $document =~ s/[,]+//gui;
 $document =~ s/[„]+//gui;
@@ -486,14 +483,14 @@ print "######################################\n";
 print "######################################\n";
 print "######################################\n";
 {
-    local( $| ) = ( 1 );
-    print "Text byl úspěšně vyfiltrován od stop slov. Stiskněte <Enter>
-nebo <Return> pro určení klíčových slov: \n";
-    my $resp = <STDIN>;
-    print "######################################\n";
-    print "######################################\n";
-    print "######################################\n";
-    print "######################################\n";
+  local( $| ) = ( 1 );
+  print "Text byl úspěšně vyfiltrován od stop slov. Stiskněte <Enter>
+  nebo <Return> pro určení klíčových slov: \n";
+  my $resp = <STDIN>;
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
 }
 
 
@@ -503,29 +500,29 @@ print "\n";
 my @keywords = keywords($document);
 
 foreach (@keywords) {
-binmode(STDOUT, ":utf8");
+  binmode(STDOUT, ":utf8");
   print "$_\n";
-  };
+};
 
 my $filename = 'klicovaslova.txt';
 open(my $fh, '>:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
 
 foreach (@keywords) {
-binmode(STDOUT, ":utf8");
+  binmode(STDOUT, ":utf8");
   print $fh "$_\n";
-  };
+};
 
 close $fh;
 print "\n";
 print "\n";
 
 {
-    local( $| ) = ( 1 );
-    print "Pět klíčových slov zobrazených výše jsou seřazeny podle frekvence
-výskytu v zadaném textu. Výsledek byl také uložen do souboru
-klicovaslova.txt, který najdete v této složce. Stiskněte <Enter> nebo
-<Return> pro ukončení programu: \n";
-    my $resp = <STDIN>;
+  local( $| ) = ( 1 );
+  print "Pět klíčových slov zobrazených výše jsou seřazeny podle frekvence
+  výskytu v zadaném textu. Výsledek byl také uložen do souboru
+  klicovaslova.txt, který najdete v této složce. Stiskněte <Enter> nebo
+  <Return> pro ukončení programu: \n";
+  my $resp = <STDIN>;
 }
 print "######################################\n";
 print "######################################\n";
