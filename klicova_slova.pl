@@ -17,10 +17,10 @@ print "######################################\n";
 print "######################################\n";
     my $resp = <STDIN>;
 }
-{
-system("sudo cpan install Lingua::EN::Keywords") == 0
-or die "Instalaci nelze spustit.";
-}
+system("sudo perl -MCPAN -e shell <<END_OF_CPAN_COMMANDS
+install Lingua::EN::Keywords
+END_OF_CPAN_COMMANDS");
+
 print "######################################\n";
 print "######################################\n";
 print "######################################\n";
