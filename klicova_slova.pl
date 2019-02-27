@@ -16,7 +16,8 @@ print "######################################\n";
     my $resp = <STDIN>;
 }
 {
-system("./instalator_modulu.sh");
+system("/bin/bash ./instalator_modulu.sh") == 0
+or die "Skript nelze spustit";
 }
 print "######################################\n";
 print "######################################\n";
