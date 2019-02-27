@@ -1,24 +1,38 @@
 BEGIN
 {
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
+  print "######################################\n";
     local( $| ) = ( 1 );
-    print "Dobrý den, vítejte v programu pro výpis klíčových slov z textu uloženém v souboru text.txt. Instalační skript nejdříve zkontroluje, zda máte nainstalované potřebné CPAN moduly a případně je nainstaluje. Stiskněte <Enter> nebo <Return> pro pokračování: ";
+    print "Dobrý den, vítejte v programu pro výpis klíčových slov z textu
+uloženém v souboru text.txt. Instalační skript nejdříve zkontroluje,
+zda máte nainstalované potřebné CPAN moduly a případně je
+nainstaluje. Stiskněte <Enter> nebo <Return> pro pokračování: \n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
     my $resp = <STDIN>;
 }
 {
 system("./instalator_modulu.sh");
 }
-
-print "\n";
-print "\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
 {
     local( $| ) = ( 1 );
-    print "Instalační skript ukončen. Pokud se během instalace vyskytly problémy, nainstalujte prosím moduly manuálně dle přiloženého souboru README.md. stiskněte <Enter> nebo <Return> pro pokračování: ";
+    print "Instalační skript ukončen. Pokud se během instalace vyskytly
+problémy, nainstalujte prosím moduly manuálně dle přiloženého souboru
+README.md. stiskněte <Enter> nebo <Return> pro pokračování: \n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
     my $resp = <STDIN>;
 }
-
-print "\n";
-print "\n";
-
 use Lingua::EN::Keywords;
 use utf8;
 my $file = "text.txt";
@@ -28,19 +42,18 @@ my $document = do {
         or die "could not open $file: $!";
     <$fh>;
 };
-
-print "\n";
-print "\n";
 {
     local( $| ) = ( 1 );
-    print "Vstupní soubor text.txt se načetl v pořádku. Nyní program odfiltruje ze zadaného textu stop slova a zobrazí filtrovaný text, ze kterého vybere pět klíčových slov a seřadí je sestupně podle frekvence jejich výskytu. Stiskněte <Enter> nebo <Return> pro pokračování: ";
+    print "Vstupní soubor text.txt se načetl v pořádku. Nyní program odfiltruje
+ze zadaného textu stop slova a zobrazí filtrovaný text, ze kterého
+vybere pět klíčových slov a seřadí je sestupně podle frekvence jejich
+výskytu. Stiskněte <Enter> nebo <Return> pro pokračování: \n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
     my $resp = <STDIN>;
 }
-
-print "\n";
-print "\n";
-
-
 $document =~ s/[,]+//gui;
 $document =~ s/[„]+//gui;
 $document =~ s/[“]+//gui;
@@ -464,16 +477,20 @@ $document =~ s/\b\w{1,2}\b//gui;
 
 
 
-print "\n";
-print "\n";
-print "$document";
-print "\n";
-print "\n";
-
+print "$document\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
 {
     local( $| ) = ( 1 );
-    print "Text byl úspěšně vyfiltrován od stop slov. Stiskněte <Enter> nebo <Return> pro určení klíčových slov: ";
+    print "Text byl úspěšně vyfiltrován od stop slov. Stiskněte <Enter>
+nebo <Return> pro určení klíčových slov: \n";
     my $resp = <STDIN>;
+    print "######################################\n";
+    print "######################################\n";
+    print "######################################\n";
+    print "######################################\n";
 }
 
 
@@ -501,17 +518,22 @@ print "\n";
 
 {
     local( $| ) = ( 1 );
-    print "Pět klíčových slov zobrazených výše jsou seřazeny podle frekvence výskytu v zadaném textu. Výsledek byl také uložen do souboru klicovaslova.txt, který najdete v této složce. Stiskněte <Enter> nebo <Return> pro ukončení programu: ";
+    print "Pět klíčových slov zobrazených výše jsou seřazeny podle frekvence
+výskytu v zadaném textu. Výsledek byl také uložen do souboru
+klicovaslova.txt, který najdete v této složce. Stiskněte <Enter> nebo
+<Return> pro ukončení programu: \n";
     my $resp = <STDIN>;
 }
-print "\n";
-print "\n";
-print "\n";
-print "\n";
-print "\n";
-print "###################E N D###################";
-print "\n";
-print "\n";
-print "\n";
-print "\n";
-print "\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "################E N D#################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
+print "######################################\n";
