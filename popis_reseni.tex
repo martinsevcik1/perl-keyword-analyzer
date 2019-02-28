@@ -1,0 +1,308 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\renewcommand\familydefault{\sfdefault}
+\usepackage{tgheros}
+\usepackage[defaultmono]{droidmono}
+
+\usepackage{amsmath,amssymb,amsthm,textcomp}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{tikz}
+
+\usepackage{geometry}
+\geometry{total={210mm,297mm},
+left=25mm,right=25mm,
+bindingoffset=0mm, top=20mm,bottom=20mm}
+
+
+\linespread{1.3}
+
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+
+\newtheoremstyle{mytheor}
+    {1ex}{1ex}{\normalfont}{0pt}{\scshape}{.}{1ex}
+    {{\thmname{#1 }}{\thmnumber{#2}}{\thmnote{ (#3)}}}
+
+\theoremstyle{mytheor}
+\newtheorem{defi}{Definition}
+
+\makeatletter
+\renewcommand{\maketitle}{
+\begin{center}
+\vspace{2ex}
+{\huge \textsc{\@title}}
+\vspace{1ex}
+\\
+\linia\\
+\@author \hfill \@date
+\vspace{4ex}
+\end{center}
+}
+\makeatother
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{Analyzátor klíčových slov}
+\cfoot{}
+\rfoot{Stránka \thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+\usepackage{listings}
+\lstset{
+    language=perl,
+    basicstyle=\ttfamily\small,
+    aboveskip={1.0\baselineskip},
+    belowskip={1.0\baselineskip},
+    columns=fixed,
+    extendedchars=true,
+    breaklines=true,
+    tabsize=4,
+    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=lines,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color[rgb]{0.627,0.126,0.941},
+    commentstyle=\color[rgb]{0.133,0.545,0.133},
+    stringstyle=\color[rgb]{01,0,0},
+    numbers=left,
+    numberstyle=\small,
+    stepnumber=1,
+    numbersep=10pt,
+    captionpos=t,
+    escapeinside={\%*}{*)}
+}
+
+
+\begin{document}
+
+\title{Analyzátor klíčových slov - Popis řešení}
+
+\author{Bc. Martin Ševčík, Masarykova univerzita}
+
+\date{28/02/2019}
+
+\maketitle
+
+\section*{Definice úlohy}
+
+Cílem zadání je vytvořit skript v jazyce Perl, který z
+\textbf{textového souboru} předaného na standardní vstup
+\textbf{vyextrahuje klíčová slova} a tato \textbf{předá na
+standardní výstup}, vždy \textbf{jedno klíčové slovo} na
+\textbf{jednom řádku}. Cílem je vyextrahovat z dokumentu klíčová
+slova vhodná \textbf{pro hledání podobných dokumentů}. Klíčová slova
+je třeba na výstupu \textbf{seřadit dle důležitosti}. Řešení lze
+omezit pouze na \textbf{české} texty a na jednoslovní klíčová slova.
+Při řešení lze použít \textbf{perlové moduly z CPANu}. Vše ostatní
+musí být součástí řešení. Váš skript bude kontrolován na
+\textbf{linuxovém počítači.}
+
+\section*{Analýza problému a rozbor zadání}
+
+\begin{itemize}
+\item Vstup ve formě textového dokumentu text.txt – vstupní text
+bude česky, je nutné dodržet kódování utf-8, aby se text správně
+načetl.
+\item Extrakce klíčových slov určených pro další vyhledávání
+podobných textů – definujeme klíčové slovo jako slovo, které je
+významově v souvislosti s textem konkrétní (není významově obecné) a
+alespoň částečně vystihuje konkrétní myšlenku textu jako celku.
+\item Klíčová slova předaná na výstup budou v češtině, každé na
+novém řádku a budou seřazena podle důležitosti – musí být dodrženo
+kódování utf-8, je třeba vymyslet, jak vypsat každé slovo na nový
+řádek, ale ještě před výpisem seřadit vybraná slova dle důležitosti,
+kterou je nutné definovat. Výpis slov je také potřeba uložit do nově
+vytvořeného textového souboru klicovaslova.txt, který by mohl pro
+případné hledání podobných dokumentů sloužit jako zdroj podobnosti.
+\item Celý skript musí být kompatibilní s os linux a lze pro jeho
+vytvoření využít vhodné CPAN moduly, které pravděpodobně mohou
+uvedení celého skriptu do provozu výrazně usnadnit.
+\end{itemize}
+
+\section*{Návrh řešení}
+
+\begin{itemize}
+\item V celém skriptu je nutné povolit kódování UTF-8, které je
+třeba aplikovat i při načítání textu ze zdrojového souboru pomocí
+parametru ":encoding(utf8)".
+\item Je nutné sestavit samostatnou databázi nebo seznam stop slov,
+která jsou příliš obecná a budou z textu před určením klíčových slov
+pomocí regulárních výrazů vyfiltrována. 
+\item V tomto konkrétním případě bude nejschůdnějším řešením určit
+důležitost klíčového slova podle toho, kolikrát se ve vyfiltrovaném
+textu vyskytuje. K řešení tohoto problému se nabízí použití metod
+sort(), zápis totožných slov (určených pomocí regulárních výrazů) v
+textu
+do array a následné spočítání a 
+porovnání indexů. Vzhledem k složitějšímu procesu bude zpočátku 
+nejvhodnější zkontrolovat, zda neexistuje CPAN modul, který by tento
+proces řešil.
+\item Výsledná klíčová slova seřazená od nejdůležitějšího bude
+nejlepší zapsat do array a pak je po jednom vypsat pomocí cyklu
+foreach do terminálu a do textového souboru.
+\end{itemize}
+
+
+\section*{Algoritmizace}
+
+Nejdříve je nutné ověřit, zda je v systému nainstalován CPAN modul
+Lingua::EN::Keywords, bez kterého nebude skript fungovat. Program 
+tento problém řeší tak, že zavolá externí instalační shell skript 
+nacházející se ve stejné složce:
+
+\begin{lstlisting}[label={list:first},caption=Příkaz pro spuštění
+instalačního
+skriptu --
+Analyzátor klíčových slov.]
+system("/bin/bash ./instalator_modulu.sh") == 0
+  or die "Skript nelze spustit";
+\end{lstlisting}
+
+Tento skript otevře CPAN shell a ověří, případně se pokusí
+nainstalovat chybějící moduly, a to ideálně bez nutnosti přístupu
+root uživatele pomocí modulu local::lib:
+
+\begin{lstlisting}[label={list:first},caption=Instalační skript instalator\_modulu.sh -- Analyzátor klíčových slov.]
+#!/usr/bin/sh
+eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
+echo 'eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`' >> ~/.profile
+echo 'export MANPATH=$HOME/perl5/man:$MANPATH' >> ~/.profile
+perl -MCPAN -e shell <<END_OF_CPAN_COMMANDS
+install local::lib
+END_OF_CPAN_COMMANDS
+echo "################################"
+perl -MCPAN -Mlocal::lib -e 'CPAN::install(LWP)'
+echo "################################"
+perl -MCPAN -e shell<<END_OF_CPAN_COMMANDS
+install Lingua::EN::Keywords
+END_OF_CPAN_COMMANDS
+echo "################################"
+\end{lstlisting}
+
+Po instalaci potřebných modulů se instalační skript
+instalator\_modulu.sh ukončí. Skript Klicova\_slova.pl pokračuje
+dále, a načte vstupní textový soubor v kódování utf-8.
+
+\begin{lstlisting}[label={list:first},caption=Perl skript načítá vstup -- Analyzátor klíčových slov.]
+use Lingua::EN::Keywords;
+use utf8;
+my $file = "text.txt";
+my $document = do {
+  local $/ = undef;
+  open my $fh, "<:encoding(UTF-8)", $file
+  or die "could not open $file: $!";
+  <$fh>;
+};
+\end{lstlisting}
+
+Následuje vyfiltrování importovaného textu od obecných slov pomocí
+regulárního výrazu. Jako zdroj českých stop slov posloužil seznam na
+webu https://countwordsfree.com/.
+
+\begin{lstlisting}[label={list:first},caption=Odfiltrování stop slov a znaků -- Analyzátor klíčových slov.]
+...
+$document =~ s/[.]+//gui;
+$document =~ s/[?]+//gui;
+$document =~ s/[:]+//gui;
+$document =~ s/[^A-Za-z]\ba\b//gui;
+$document =~ s/[^A-Za-z]\baby\b//gui;
+$document =~ s/[^A-Za-z]\bahoj\b//gui;
+$document =~ s/[^A-Za-z]\baj\b//gui;
+...
+\end{lstlisting}
+
+Po vyfiltrování textu definuje skript array @keywords, který je
+pomocí metody keywords() modulu Lingua::EN::Keywords naplněn pěti
+nejdůležitějšími klíčovými slovy dle frekvence výskytu.
+
+\begin{lstlisting}[label={list:first},caption=Volání metody keywords() modulu Lingua::EN::Keywords -- Analyzátor klíčových slov.]
+my @keywords = keywords($document);
+\end{lstlisting}
+
+\begin{lstlisting}[label={list:first},caption=Modul Lingua::EN::Tagger extrahuje 5 nejdůležitějších klíčových slov -- Zdroj: https://metacpan.org/source/SIMON/Lingua-EN-Keywords-2.0/Keywords.pm.]
+package My::Tagger;
+@My::Tagger::ISA=qw(Lingua::EN::Tagger);
+my %known_stems;
+sub stem {
+    my ( $self, $word ) = @_;
+    return $word unless $self->{'stem'};
+    return $known_stems{ $word } if exists $known_stems{$word};
+    my $stemref = Lingua::Stem::En::stem( -words => [ $word ] );
+ 
+    $known_stems{ $word } = $stemref->[0] if exists $stemref->[0];
+}
+ 
+sub stems { reverse %known_stems; }
+ 
+package Lingua::EN::Keywords;
+use Lingua::EN::Tagger;
+require 5.005_62;
+use strict;
+use warnings;
+ 
+my $t = My::Tagger->new(longest_noun_phrase => 5,weight_noun_phrases=>0);
+ 
+require Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT = qw( keywords);
+our $VERSION = '2.0';
+sub keywords {
+    my %wl = $t->get_words(shift);
+    my %newwl; 
+    $newwl{unstem($_)} += $wl{$_} for keys %wl;
+    return (sort { $newwl{$b} <=> $newwl{$a} } keys %newwl)[0..5];
+}
+sub unstem {
+    my %cache = $t->stems;
+    my $word = shift;
+    return $cache{$word} || $word;
+}
+\end{lstlisting}
+
+V závěru skript spustí dva foreach cykly, které při každé iteraci
+vypíší na nový řádek jedno z pěti klíčových slov uložených v
+@keywords seřazených dle důležitosti, a to nejdříve do nového
+souboru klicovaslova.txt, a poté i do konzole.
+
+\begin{lstlisting}[label={list:first},caption=Výstup skriptu -- Analyzátor klíčových slov.]
+foreach (@keywords) {
+  binmode(STDOUT, ":utf8");
+  print "$_\n";
+};
+
+my $filename = 'klicovaslova.txt';
+open(my $fh, '>:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
+
+foreach (@keywords) {
+  binmode(STDOUT, ":utf8");
+  print $fh "$_\n";
+};
+
+close $fh;
+\end{lstlisting}
+
+Poté se skript ukončí.
+\section*{Nedokonalosti a podněty ke zlepšení pro případnou další verzi}
+\begin{enumerate}
+\item Úsporněji implementovat seznam stop slov.
+\item Instalační skript pro CPAN moduly je na některých systémech
+nefunkční a je třeba moduly instalovat manuálně.
+\item Nahradit činnost modulu vlastním algoritmem, který by mohl
+určovat důležitost klíčových slov na základě kritérií zadaných
+uživatelem.
+\item Odhalit a odstranit příčinu upozornění "Wide character in print..."
+
+\end{enumerate}
+\end{document}

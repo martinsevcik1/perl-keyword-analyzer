@@ -1,5 +1,5 @@
-informace
 data
+informace
 web
 zástupce
 jednoho
