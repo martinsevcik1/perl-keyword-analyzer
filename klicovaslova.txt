@@ -1,6 +1,6 @@
 data
 informace
 web
-zástupce
 jednoho
+zástupce
 policie
