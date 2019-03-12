@@ -1,6 +1,6 @@
-informace
-data
-web
-zástupce
-jednoho
-policie
+řešení
+slova
+klíčová
+skript
+úkolu
+kódování

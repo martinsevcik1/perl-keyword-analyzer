@@ -1,4 +1,5 @@
 BEGIN
+# Úvod programu a spuštění instalačního skriptu instalator_modulu.sh
 {
   print "######################################\n";
   print "######################################\n";
@@ -33,13 +34,14 @@ BEGIN
   print "######################################\n";
   my $resp = <STDIN>;
 }
+# Načtení potřebného modulu a vstupního textu v kódování UTF-8
 use Lingua::EN::Keywords;
 use utf8;
 my $file = "text.txt";
 my $document = do {
   local $/ = undef;
   open my $fh, "<:encoding(UTF-8)", $file
-  or die "could not open $file: $!";
+  or die "Nelze otevřít $file: $!";
   <$fh>;
 };
 {
@@ -54,6 +56,7 @@ my $document = do {
   print "######################################\n";
   my $resp = <STDIN>;
 }
+# Odfiltrování stop slov ze zadaného textu
 $document =~ s/[,]+//gui;
 $document =~ s/[„]+//gui;
 $document =~ s/[“]+//gui;
@@ -476,6 +479,7 @@ $document =~ s/[^A-Za-z]\bnicméně\b//gui;
 $document =~ s/\b\w{1,2}\b//gui;
 
 
+# Výpis vyfiltrovaného textu do konzole
 
 print "$document\n";
 print "######################################\n";
@@ -492,29 +496,38 @@ print "######################################\n";
   print "######################################\n";
   print "######################################\n";
 }
-
-
 print "\n";
 print "\n";
+
+# Výběr pěti klíčových slov a uložení do array
 
 my @keywords = keywords($document);
+
+# Výpis slov do konzole ve formátu UTF-8
 
 foreach (@keywords) {
   binmode(STDOUT, ":utf8");
   print "$_\n";
 };
 
+# Vytvoření výstupního souboru v kódování UTF-8
+
 my $filename = 'klicovaslova.txt';
-open(my $fh, '>:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
+open(my $fh, '>:encoding(UTF-8)', $filename) or die "Nelze vytvořit soubor '$filename' $!";
+
+# Nalnění výstupního souboru klíčovými slovy ve formátu UTF-8
 
 foreach (@keywords) {
   binmode(STDOUT, ":utf8");
   print $fh "$_\n";
 };
+# Uzavření výstupního souboru
 
 close $fh;
 print "\n";
 print "\n";
+
+# Ukončení skriptu
 
 {
   local( $| ) = ( 1 );
@@ -524,6 +537,8 @@ print "\n";
   <Return> pro ukončení programu: \n";
   my $resp = <STDIN>;
 }
+
+print "######################################\n";
 print "######################################\n";
 print "######################################\n";
 print "######################################\n";
@@ -531,6 +546,8 @@ print "######################################\n";
 print "######################################\n";
 print "######################################\n";
 print "################E N D#################\n";
+print "######################################\n";
+print "######################################\n";
 print "######################################\n";
 print "######################################\n";
 print "######################################\n";
